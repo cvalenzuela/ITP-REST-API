@@ -6,7 +6,7 @@ Hardware on the floor updates the database.
 
 Clients connect via SMS or HTTP.
 
-## API Reference
+## API Reference
 
 The API is live at `165.227.188.111:9888` and at the phone number given in class.
 
