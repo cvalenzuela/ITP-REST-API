@@ -74,7 +74,7 @@ module.exports = (req, res) =>  {
     });
 
     request.on('error', (error) => {
-      sendSMSResponse(response, false);
+      sendSMSResponse(error, false);
     });
 
     request.end();
