@@ -65,9 +65,9 @@ module.exports = (req, res) =>  {
       }
     });
   } else {
-    console.log(texter)
+
     let dialogFlowRequest = agent.textRequest(texter.Body, {
-      sessionId: texter.MessageSid
+      sessionId: texter.From
     });
 
     dialogFlowRequest.on('response', response => {
