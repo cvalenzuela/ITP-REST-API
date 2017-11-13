@@ -62,6 +62,6 @@ module.exports = (req, res) =>  {
       }
     });
   } else {
-    sendSMSResponse(messages.subscription.again, false);
+    sendSMSResponse(messages.others.again, false);
   }
 };
