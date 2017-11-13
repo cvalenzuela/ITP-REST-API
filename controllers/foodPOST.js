@@ -58,12 +58,16 @@ module.exports = (req, res) =>  {
               twilioClient.messages.create(SMS).then((message) => {
                 console.log(message)
                 // Delete the image from twilio servers
-                // client.messages(message.sid).media(mediaSid)
-                //   .remove()
-                //   .then(() => {
-                //     console.log(`Sid ${mediaSid} deleted successfully.`);
-                //   })
-                //   .catch((err) => console.log(err));
+                console.log('=======')
+                client.messages(message.sid).media.each((media) => {
+                    console.log(media)
+                    // mediaSid.remove()
+                    //   .then(() => {
+                    //     console.log(`Sid ${mediaSid} deleted successfully.`);
+                    //   })
+                    //   .catch((err) => console.log(err));
+                  }
+                )
               });
             });
           })
