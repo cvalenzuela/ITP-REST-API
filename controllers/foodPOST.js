@@ -51,24 +51,12 @@ module.exports = (req, res) =>  {
               let SMS = {
                 body: messages.food.announcement,
                 to: user.phone,
-                from: secret.NUMBER
+                from: secret.NUMBER,
+                statusCallback: paths.DELETEMEDIA
               };
               img && (SMS.mediaUrl = paths.UPLOADS + img.filename);
               // Send the SMS
-              twilioClient.messages.create(SMS).then((message) => {
-                console.log(message)
-                // Delete the image from twilio servers
-                console.log("-------")
-                twilioClient.messages(message.sid).media.each((media) => {
-                  console.log(media)
-                    media.remove()
-                      .then(() => {
-                        console.log(`Sid ${media.sid} deleted successfully.`);
-                      })
-                      .catch((err) => console.log(err));
-                  }
-                )
-              });
+              twilioClient.messages.create(SMS).then((message) => console.log(`${message.sid} sent`));
             });
           })
           sendJSONresponse.ok(res, { foodStatus: food.status, currentFood: food.currentFood }, messages.food.updated);

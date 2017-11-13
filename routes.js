@@ -23,4 +23,7 @@ router.get('/floor', Controllers.FloorGET);
 // Handle Twilio Messages
 router.post('/handleTwilio', Controllers.handleTwilio);
 
+// Delete Media (imgs) once Twilio has send them
+router.post('/deleteMedia', Controllers.deleteMedia);
+
 module.exports = router;
