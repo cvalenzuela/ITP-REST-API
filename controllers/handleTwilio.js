@@ -65,7 +65,7 @@ module.exports = (req, res) =>  {
       }
     });
   } else {
-    let request = app.textRequest(texter.Body, {
+    let request = agent.textRequest(texter.Body, {
       sessionId: texter.sid
     });
 
