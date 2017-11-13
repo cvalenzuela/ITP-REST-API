@@ -65,6 +65,7 @@ module.exports = (req, res) =>  {
       }
     });
   } else {
+    console.log(texter.Body)
     let request = agent.textRequest(texter.Body, {
       sessionId: texter.sid
     });
@@ -74,7 +75,7 @@ module.exports = (req, res) =>  {
     });
 
     request.on('error', (error) => {
-      sendSMSResponse(error.result.fulfillment.speech, false);
+      sendSMSResponse(messages.others.again, false);
     });
 
     request.end();
