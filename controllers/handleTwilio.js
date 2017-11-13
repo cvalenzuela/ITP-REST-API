@@ -71,12 +71,10 @@ module.exports = (req, res) =>  {
     });
 
     dialogFlowRequest.on('response', response => {
-      console.log(response);
       sendSMSResponse(response.result.fulfillment.speech, false);
     });
 
     dialogFlowRequest.on('error', error => {
-      console.log(error);
       sendSMSResponse(messages.others.again, false);
     });
 
