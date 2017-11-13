@@ -19,7 +19,7 @@ module.exports = {
   },
   others: {
     forks: `Amount of forks in the kitchen: 0`,
-    again: `Wow, I didn't catch that!`
+    again: `Sorry, I didn't catch that!`
   },
   devices: {
     noStatus: `You need to provide a status value in the request. This must be either true or false`,
