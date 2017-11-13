@@ -16,7 +16,6 @@ const sendJSONresponse = require('./../utils/jsonResponse');
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
 module.exports = (req, res) =>  {
-  console.log('new msg arriving');
   const twiml = new MessagingResponse();
   let message = twiml.message();
   const texter = req.body;
@@ -24,50 +23,47 @@ module.exports = (req, res) =>  {
   const query = { 'phone': texter.From };
   const create = { $setOnInsert: { phone: texter.From } };
   const options = { new: true, upsert: true };
-  let msg = '';
-  let isMedia = false;
-  let mediaURL = '';
 
-  // Possible user inputs
+  let sendSMSResponse = (msg, mediaURL) => {
+    message.body(msg);
+    mediaURL && message.media(paths.UPLOADS + mediaURL)
+    res.writeHead(200, { 'Content-Type': 'text/xml' });
+    res.end(twiml.toString());
+  }
+
+  // User input
   if (texter.Body.indexOf('o food for me') > 0) {
     if (db.subscribers.has(texter.From)) {
       User.findOneAndRemove({ phone: texter.From }, (err, user) => {
         if (err) {
-          msg = messages.subscription.error;
+          sendSMSResponse(messages.subscription.error, false);
         } else {
-          msg = messages.subscription.delete;
+          sendSMSResponse(messages.subscription.delete, false);
         }
       });
     }
   } else if (texter.Body.indexOf('want food') > 0) {
     User.findOneAndUpdate(query, create, options, (err, user) => {
       if (err) {
-        msg = messages.subscription.error;
+        sendSMSResponse(messages.subscription.error, false);
       } else {
-        msg = messages.subscription.new;
+        sendSMSResponse(messages.subscription.new, false);
       }
     })
   } else if (texter.Body.indexOf('ood') > 0) {
     Food.find({}, (err, foods) => {
       const food = foods[0];
       if (err) {
-        msg = messages.subscription.error;
+        sendSMSResponse(messages.subscription.error, false);
       } else {
-        food.status ? msg = messages.food.true : msg = messages.food.false;
-        if(food.currentFood.length > 1){
-          mediaURL = food.currentFood;
-          isMedia = true;
-        } else {
-          isMedia = false;
-        } 
+        let msg = messages.food.false;
+        food.status && (msg = messages.food.true);
+        let mediaURL = false;
+        food.currentFood.length > 1 && (mediaURL = food.currentFood);
+        sendSMSResponse(msg, mediaURL);
       }
     });
   } else {
-    msg = messages.others.again;
+    sendSMSResponse(messages.subscription.again, false);
   }
-
-  message.body(msg);
-  isMedia && message.media(paths.UPLOADS + mediaURL)
-  res.writeHead(200, { 'Content-Type': 'text/xml' });
-  res.end(twiml.toString());
-}
+};
