@@ -70,11 +70,11 @@ module.exports = (req, res) =>  {
     });
 
     request.on('response', (response) => {
-      sendSMSResponse(response, false);
+      sendSMSResponse(response.result.fulfillment.speech, false);
     });
 
     request.on('error', (error) => {
-      sendSMSResponse(error, false);
+      sendSMSResponse(error.result.fulfillment.speech, false);
     });
 
     request.end();
