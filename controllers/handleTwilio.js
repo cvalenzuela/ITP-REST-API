@@ -24,47 +24,50 @@ module.exports = (req, res) =>  {
   const query = { 'phone': texter.From };
   const create = { $setOnInsert: { phone: texter.From } };
   const options = { new: true, upsert: true };
+  let msg = '';
+  let isMedia = false;
+  let mediaURL = '';
 
   // Possible user inputs
   if (texter.Body.indexOf('o food for me') > 0) {
-    console.log(texter.From, 'wants to unsubscribe');
     if (db.subscribers.has(texter.From)) {
       User.findOneAndRemove({ phone: texter.From }, (err, user) => {
         if (err) {
-          message.body(messages.subscription.error);
+          msg = messages.subscription.error;
         } else {
-          console.log(messages.subscription.delete);
-          message.body(messages.subscription.delete);
+          msg = messages.subscription.delete;
         }
       });
     }
   } else if (texter.Body.indexOf('want food') > 0) {
-    console.log(texter.From, 'wants to subscribe');
     User.findOneAndUpdate(query, create, options, (err, user) => {
       if (err) {
-        message.body(messages.subscription.error);
+        msg = messages.subscription.error;
       } else {
-        console.log(messages.subscription.new);
-        message.body(messages.subscription.new);
+        msg = messages.subscription.new;
       }
     })
   } else if (texter.Body.indexOf('ood') > 0) {
-    console.log(texter.From, 'wants to status');
     Food.find({}, (err, foods) => {
       const food = foods[0];
       if (err) {
-        message.body(messages.subscription.error);
+        msg = messages.subscription.error;
       } else {
-        console.log(messages.food.true);
-        food.status ? message.body(messages.food.true) : message.body(messages.food.false);
-        food.currentFood.length > 1 && (message.media(paths.UPLOADS + food.currentFood));
+        food.status ? msg = messages.food.true : msg = messages.food.false;
+        if(food.currentFood.length > 1){
+          mediaURL = food.currentFood;
+          isMedia = true;
+        } else {
+          isMedia = false;
+        } 
       }
     });
   } else {
-    console.log(messages.food.true);
-    message.body(messages.others.again);
+    msg = messages.others.again;
   }
-  message.body('test message');
+
+  message.body(msg);
+  isMedia && message.media(paths.UPLOADS + mediaURL)
   res.writeHead(200, { 'Content-Type': 'text/xml' });
   res.end(twiml.toString());
 }
