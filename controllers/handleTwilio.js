@@ -64,6 +64,8 @@ module.exports = (req, res) =>  {
         sendSMSResponse(msg, mediaURL);
       }
     });
+  } else if (texter.Body.indexOf('orks') > 0) {
+    sendSMSResponse(messages.others.forks, false);
   } else {
 
     let dialogFlowRequest = agent.textRequest(texter.Body, {
