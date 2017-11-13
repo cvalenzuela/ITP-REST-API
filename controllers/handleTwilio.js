@@ -64,7 +64,7 @@ module.exports = (req, res) =>  {
     console.log(messages.food.true);
     message.body(messages.others.again);
   }
-
+  message.body('test message');
   res.writeHead(200, { 'Content-Type': 'text/xml' });
   res.end(twiml.toString());
 }
