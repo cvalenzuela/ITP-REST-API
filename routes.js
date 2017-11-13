@@ -11,9 +11,14 @@ const multer = require('multer');
 
 // Get the food status
 router.get('/food', Controllers.FoodGET);
-
 // Change food status
 router.post('/food', multer({ dest: './public/uploads/'}).single('image'), Controllers.FoodPOST)
+
+// Get the forks status
+router.get('/forks', Controllers.ForksGET);
+
+// Get the floor status
+router.get('/floor', Controllers.FloorGET);
 
 // Handle Twilio Messages
 router.post('/handleTwilio', Controllers.handleTwilio);

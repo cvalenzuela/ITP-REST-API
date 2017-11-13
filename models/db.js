@@ -28,3 +28,4 @@ gracefulShutdown(itpDB);
 
 // Schemas
 require('./schemas/user');
+require('./schemas/food');
