@@ -56,8 +56,11 @@ module.exports = (req, res) =>  {
               img && (SMS.mediaUrl = paths.UPLOADS + img.filename);
               // Send the SMS
               twilioClient.messages.create(SMS).then((message) => {
+                console.log(message)
                 // Delete the image from twilio servers
+                console.log("-------")
                 twilioClient.messages(message.sid).media.each((media) => {
+                  console.log(media)
                     media.remove()
                       .then(() => {
                         console.log(`Sid ${media.sid} deleted successfully.`);
