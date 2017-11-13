@@ -65,11 +65,8 @@ module.exports = (req, res) =>  {
       }
     });
   } else {
-    console.log(texter.Body)
-    console.log(texter)
-    console.log(texter.sid)
     let dialogFlowRequest = agent.textRequest(texter.Body, {
-      sessionId: texter.sid
+      sessionId: texter.MessageSid
     });
 
     dialogFlowRequest.on('response', response => {
@@ -82,6 +79,6 @@ module.exports = (req, res) =>  {
       sendSMSResponse(messages.others.again, false);
     });
 
-    request.end();
+    dialogFlowRequest.end();
   }
 };
