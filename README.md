@@ -16,9 +16,10 @@ The API is live at `165.227.188.111:9888` and at the phone number given in class
 
 - ### `POST /api/food`
 
-  > Update the status of free food. It requires a valid access token. This method accepts two values that must be sent in the body:
-  > - status: true or false
-  > - image: A .jpg, .png or .gif of the current food
+  > Update the status of free food. It requires a valid access token. This method accepts three values must be sent in the body:
+  > - status: true or false - Required
+  > - token: APIKEY - Required
+  > - image: A .jpg, .png or .gif of the current food - Optional
 
 - ### `TEXT 'I want food'`
 

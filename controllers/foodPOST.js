@@ -53,7 +53,7 @@ module.exports = (req, res) =>  {
                 to: user.phone,
                 from: secret.NUMBER
               };
-              img && (SMS.mediaUrl = paths.uploads + img.filename);
+              img && (SMS.mediaUrl = paths.UPLOADS + img.filename);
               // Send the SMS
               twilioClient.messages.create(SMS).then((message) => {
                 console.log(message)
