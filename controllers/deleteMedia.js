@@ -18,7 +18,6 @@ module.exports = ((req, res) => {
 
   if(messageStatus == 'delivered'){
     // Delete the image from twilio server
-    console.log('message was delivered, now removing image')
     twilioClient.messages(messageSid).media.each((media) => {
         media.remove()
           .then(() => {

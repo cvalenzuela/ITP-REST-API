@@ -13,7 +13,9 @@ const User = mongoose.model('User');
 const messages = require('./../utils/messages');
 const paths = require('./../utils/paths');
 const sendJSONresponse = require('./../utils/jsonResponse');
+const secret = require('./../credentials');
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
+const agent = apiai(secret.DIALOGFLOW);
 
 module.exports = (req, res) =>  {
   const twiml = new MessagingResponse();
@@ -62,6 +64,18 @@ module.exports = (req, res) =>  {
       }
     });
   } else {
-    sendSMSResponse(messages.others.again, false);
+    let request = app.textRequest(texter.Body, {
+      sessionId: texter.sid
+    });
+
+    request.on('response', (response) => {
+      sendSMSResponse(response, false);
+    });
+
+    request.on('error', (error) => {
+      sendSMSResponse(response, false);
+    });
+
+    request.end();
   }
 };
