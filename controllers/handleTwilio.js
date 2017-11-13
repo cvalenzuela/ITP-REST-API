@@ -33,15 +33,13 @@ module.exports = (req, res) =>  {
 
   // User input
   if (texter.Body.indexOf('o food for me') > 0) {
-    if (db.subscribers.has(texter.From)) {
-      User.findOneAndRemove({ phone: texter.From }, (err, user) => {
-        if (err) {
-          sendSMSResponse(messages.subscription.error, false);
-        } else {
-          sendSMSResponse(messages.subscription.delete, false);
-        }
-      });
-    }
+    User.findOneAndRemove({ phone: texter.From }, (err, user) => {
+      if (err) {
+        sendSMSResponse(messages.subscription.error, false);
+      } else {
+        sendSMSResponse(messages.subscription.delete, false);
+      }
+    });
   } else if (texter.Body.indexOf('want food') > 0) {
     User.findOneAndUpdate(query, create, options, (err, user) => {
       if (err) {
