@@ -14,6 +14,7 @@ const messages = require('./../utils/messages');
 const paths = require('./../utils/paths');
 const sendJSONresponse = require('./../utils/jsonResponse');
 const secret = require('./../credentials');
+const apiai = require('apiai');
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const agent = apiai(secret.DIALOGFLOW);
 
