@@ -36,6 +36,10 @@ The API is live at `165.227.188.111:9888` and at the phone number given in class
 - ### `GET /api/floor` or `TEXT 'Floor'`
 
   > Get the status of the floor. Is it open or not.
+
+- ### `TEXT 'Make me a sandwich' (or something similar)`
+
+  > Make a sandwich.
   
 ## Made by
 - Pilar Gomez-Ruiz
