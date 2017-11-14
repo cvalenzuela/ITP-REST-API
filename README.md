@@ -1,10 +1,6 @@
 # ITP REST API
 
-A REST API to access realtime information about ITP. 
-
-Hardware on the floor updates the database.
-
-Clients connect via SMS or HTTP.
+The ITP REST API allows real-time access to information about ITP. We originally created it with the intention to notify people from the ITP community when there is free food at the floor, but it has the capability of being expanded to other user-cases. Hardware on the floor updates the database and clients connect to it via SMS or HTTP (you can test the HTTP requests using [Postman](https://www.getpostman.com/apps) ).
 
 ## API Reference
 
