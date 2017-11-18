@@ -36,7 +36,15 @@ The API is live at `165.227.188.111:9888` and at the phone number given in class
 - ### `GET /api/floor` or `TEXT 'Floor'`
 
   > Get the status of the floor. Is it open or not.
-  
+
+- ### `TEXT 'Make me a sandwich' (or something similar)`
+
+  > Make a sandwich.
+
+## Arduino Client
+
+The `/ArduinoClient` has a sample Arduino code to make POST and GET requests with the Arduino MKR1000.
+
 ## Made by
 - Pilar Gomez-Ruiz
 - Mithru Vigneshwara

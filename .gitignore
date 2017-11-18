@@ -1,2 +1,4 @@
 credentials.js
+ArduinoClient/arduino_secrets.h
+.vscode
 node_modules
